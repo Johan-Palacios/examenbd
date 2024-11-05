@@ -1,0 +1,18 @@
+name: dev_examem_bd
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: db-examen-sql
+    restart: always
+    ports:
+      - 1433:1433
+    volumes:
+      #https://learn.microsoft.com/en-us/sql/linux/sql-server-linux-docker-container-security?view=sql-server-ver16
+      - ./sqlserverdata/data:/var/opt/mssql/data
+      - ./sqlserverdata/log:/var/opt/mssql/log
+      - ./sqlserverdata/secrets:/var/opt/mssql/secrets
+      - ./sqlserverdata/datasql:/var/opt/sqlserver/data
+      - ./sqlserverdata/logsql:/var/opt/sqlserver/log
+    env_file:
+      - sqlserver.env
+      - sapassword.env
